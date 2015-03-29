@@ -5,8 +5,7 @@
 
 # Использование
 
-### Подключение
-
+## Подключение
 ```javascript
 <script type="text/javascript" src="qtree.js"></script>
 <script type="text/javascript">
@@ -17,8 +16,7 @@
 </script>
 ```
 
-
-### Данные
+## Данные
 
 #### Объект ```data```
 **Простой пример:**
@@ -88,7 +86,7 @@ var data = {
 };
 
 ```
----
-#### Шаблоны-указатели
+
+## Шаблоны-указатели
 ```=>{{item-in-questions}}``` - указывает на объект в ```questions``` c именем ```item-in-questions```<br/>
 ```=={{item-in-conclusions}}``` - указывает на объект в ```conclusions``` c именем ```item-in-conclusions```
