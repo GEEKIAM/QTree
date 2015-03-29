@@ -43,7 +43,7 @@ var data = {
   
   'conclusions': {
     'You like red colour': {},
-    'You like green colour' {},
+    'You like green colour': {},
     'You bore me': {}
   }
 };
