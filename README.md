@@ -20,16 +20,32 @@
 
 ##### Данные
 
-Конструктор принимает объект ```data``` в качестве аргумента.
-
-Объект ```data``` должен иметь слудующие ключи:
+**Простой пример объекта** ```data```**:**
 ```javascript
 
 var data = {
-  entry: '', // Точка входа
+  'entry': 'Do you like red colour?', // Точка входа (вопрос, с которого мы должны начать)
   
-  questions: {}, // Список вопросов
-  conclusions: {} // Список выводов
+  'questions': {
+    'Do you like red colour?': {      // Вопрос
+      'answers': {                    // Варианты ответов
+        'Yep, I like it!': '=={{You like red colour}},
+        'Hm, I\'m not sure..': '=>{{Do you like green colour?}}'
+      }
+    },
+    'Do you like green colour?': {
+      'answers': { 
+        'Yay, of course!': '=={{You like green colour}},
+        'Nope :(': '=={{You bore me}}
+      }
+    }
+  },
+  
+  'conclusions': {
+    'You like red colour': {},
+    'You like green colour' {},
+    'You bore me': {}
+  }
 };
 
 ```
