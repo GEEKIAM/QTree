@@ -91,29 +91,29 @@ var data = {
 ## Шаблоны-указатели
 Позволяют ссылаться на другие вопросы или выводы.
 
-```=>{{item-in-questions}}``` - указывает на объект в ```questions``` c именем ```item-in-questions```<br/>
-```=={{item-in-conclusions}}``` - указывает на объект в ```conclusions``` c именем ```item-in-conclusions```
+**```=>{{item-in-questions}}```** - указывает на объект в ```questions``` c именем ```item-in-questions```<br/>
+**```=={{item-in-conclusions}}```** - указывает на объект в ```conclusions``` c именем ```item-in-conclusions```
 
 
 ## API
 ### Cвойства:
 
-####```current.id {String}```
+#####```current.id {String}```
 Идентификатор ноды в объекте ```questions``` или ```conclusions```.
 <br/><br/>
-####```current.answers {Array}```
+#####```current.answers {Array}```
 Массив вариантов ответов. Доступно только если ```current.isQuestion === true```.
 <br/><br/>
-####```current.isQuestion {Boolean}```
+#####```current.isQuestion {Boolean}```
 Тип ноды: равно ```true```, если нода является вопросом и ```false```, если выводом.
 <br/><br/>
-####```current.representation {String}```
+#####```current.representation {String}```
 UI-представление вопроса. Идеально подходит для интеграции с UI. Доступно только если было явно указано для ноды в объекте ```data``` при создании экземпляра класса.
 
 <br/>
 ### Методы:
 
-####```next(answer)```
+#####```next(answer)```
 Перемещает ```current``` к следующей ноде, основываясь на переданном аргументом ответе.
 
 **Аргументы:**<br/>
