@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+  <meta charset="UTF-8">
+  <title>QTree - Full-featured example</title>
+
+  <script src="../qtree.js"></script>
+
+  <style>
+    html {
+      height: 100%;
+    }
+
+    body {
+      display: table;
+      height: 100%;
+      width: 100%;
+      margin: 0;
+      padding: 0;
+      font-family: sans-serif;
+      color: #ecf0f1;
+    }
+
+    h1 {
+      font-size: 70px;
+      line-height: 100px;
+    }
+
+    h4 {
+      font-size: 25px;
+      line-height: 25px;
+      text-transform: uppercase;
+    }
+
+    .qtree {
+      width: 100%;
+      height: 100%;
+      display: table-cell;
+      vertical-align: middle;
+      text-align: center;
+
+      background-color: #2980b9;
+    }
+
+      .qtree-question > h1 {
+        margin: 0 0 20px 0;
+      }
+
+      .qtree-conclusion > h1 {
+        font-size: 80px;
+      }
+
+      .qtree-conclusion > h1,
+      .qtree-conclusion > h4 {
+        margin: 0;
+      }
+
+
+
+      .qtree-answers {
+        margin: 0;
+        padding: 0;
+        list-style: none;
+        font-size: 0;
+      }
+
+        .qtree-answer-button {
+          display: inline-block;
+          padding: 20px 36px 16px;
+          margin: 20px 30px;
+          border: 5px solid #ecf0f1;
+          font-size: 30px;
+          text-transform: uppercase;
+          cursor: pointer;
+        }
+
+        .qtree-answer-button:hover {
+          color: #2980b9;
+          background-color: #ecf0f1;
+        }
+  </style>
+</head>
+<body>
+
+<script>
+  var data = {
+    'entry': 'rent-pay',
+
+    'questions': {
+      'rent-pay': {
+        'representation': '<h1>Do you pay rent?</h1>',
+        'answers': {
+          'No': '=={{freeloader}}',
+          'Yes': '=>{{ontime-pay}}'
+        }
+      },
+      'ontime-pay': {
+        'representation': '<h1>Do you pay it on time?</h1>',
+        'answers': {
+          'Oh, crap': '=>{{frozen-ready-meals}}',
+          'Yes, usually': '=>{{cook}}'
+        }
+      },
+      'frozen-ready-meals': {
+        'representation': '<h1>Do you live off frozen ready meals?</h1>',
+        'answers': {
+          'Yes': '=>{{clean}}',
+          'No': '=>{{cook}}'
+        }
+      },
+      'cook': {
+        'representation': '<h1>Do you cook?</h1>',
+        'answers': {
+          'Yes': '=>{{buy-groceries}}',
+          'No': '=>{{ever-home}}'
+        }
+      },
+      'buy-groceries': {
+        'representation': '<h1>Do you buy groceries?</h1>',
+        'answers': {
+          'Yes': '=>{{clean}}',
+          'No': '=={{thief}}'
+        }
+      },
+      'clean': {
+        'representation': '<h1>Do you clean?</h1>',
+        'answers': {
+          'Yes': '=>{{micro-germs}}',
+          'Sometimes': '=>{{music}}',
+          'No': '=={{slob}}'
+        }
+      },
+      'micro-germs': {
+        'representation': '<h1>Can you use microscopic germs?</h1>',
+        'answers': {
+          'No': '=={{neat-freak}}',
+          'Yes': '=={{normal}}'
+        }
+      },
+      'ever-home': {
+        'representation': '<h1>Are you ever home?</h1>',
+        'answers': {
+          'Yes': '=>{{chill-out}}',
+          'No': '=={{ghost}}'
+        }
+      },
+      'chill-out': {
+        'representation': '<h1>Where do you chill out?</h1>',
+        'answers': {
+          'Bedroom': '=={{hermit}}',
+          'Living room': '=>{{clean}}'
+        }
+      },
+      'music': {
+        'representation': '<h1>Music is best played...</h1>',
+        'answers': {
+          'Turned up to 11': '=>{{speed-dial}}',
+          'To suit the acoustics of the room': '=={{normal}}'
+        }
+      },
+      'speed-dial': {
+        'representation': '<h1>Who is your speed dial?</h1>',
+        'answers': {
+          'Bender buddies': '=={{party-animal}}',
+          'Drug dealer': '=={{stoner}}'
+        }
+      }
+    },
+
+    'conclusions': {
+      'freeloader': {
+        'representation': '<h1>The freeloader</h1><h4>Get your own place</h4>'
+      },
+      'slob': {
+        'representation': '<h1>The slob</h1><h4>Clean up</h4>'
+      },
+      'thief': {
+        'representation': '<h1>The thief</h1><h4>Get your own things</h4>'
+      },
+      'neat-freak': {
+        'representation': '<h1>The neat freak</h1><h4>Chill, you\'re not gonna die</h4>'
+      },
+      'normal': {
+        'representation': '<h1>You\'re normal</h1><h4>or so you think...</h4>'
+      },
+      'party-animal': {
+        'representation': '<h1>The party animal</h1><h4>Calm down</h4>'
+      },
+      'stoner': {
+        'representation': '<h1>The stoner</h1><h4>Get it together</h4>'
+      },
+      'ghost': {
+        'representation': '<h1>The ghost</h1><h4>Where are you?</h4>'
+      },
+      'hermit': {
+        'representation': '<h1>The hermit</h1><h4>Get out of that shell</h4>'
+      }
+    }
+  };
+
+  var qtree = new QTree(data);
+</script>
+
+<div id="qtree" class="qtree">
+  <div class="qtree-question" id="qtree-question"></div>
+  <div class="qtree-conclusion" id="qtree-conclusion"></div>
+  <ul class="qtree-answers" id="qtree-answers"></ul>
+</div>
+
+
+<script>
+  function render(answer) {
+    if (typeof answer !== 'undefined') {
+      qtree.next(answer);
+    }
+
+    var selectors = {
+      container: 'qtree',
+      question: 'qtree-question',
+      conclusion: 'qtree-conclusion',
+      answersList: 'qtree-answers',
+      answerButton: 'qtree-answer-button'
+    };
+
+    // Get elements
+    var qtreeContainer = document.getElementById(selectors.container);
+    var qtreeQuestion = document.getElementById(selectors.question);
+    var qtreeConclusion = document.getElementById(selectors.conclusion);
+    var qtreeAnswers = document.getElementById(selectors.answersList);
+
+    // Clean up the content of things that will be updated
+    qtreeQuestion.innerHTML = '';
+    qtreeAnswers.innerHTML = '';
+
+    // Render
+    if (qtree.current.isQuestion) {
+      qtreeQuestion.innerHTML = qtree.current.representation;
+
+      for (var i = 0, length = qtree.current.answers.length; i < length; i++) {
+        var qtreeContainerBt = document.createElement('li');
+
+        qtreeContainerBt.innerHTML = qtree.current.answers[i];
+        qtreeContainerBt.className = selectors.answerButton;
+        qtreeContainerBt.onclick = function () {
+          render(this.innerHTML);
+        };
+
+        qtreeAnswers.appendChild(qtreeContainerBt);
+      }
+    } else {
+      qtreeConclusion.innerHTML = qtree.current.representation;
+      qtreeContainer.style.backgroundColor = '#27ae60';
+    }
+  }
+
+  render();
+</script>
+</body>
+</html>
