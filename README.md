@@ -29,14 +29,14 @@ var data = {
   'questions': {
     'Do you like red colour?': {      // Вопрос
       'answers': {                    // Варианты ответов
-        'Yep, I like it!': '=={{You like red colour}},
+        'Yep, I like it!': '=={{You like red colour}}',
         'Hm, I\'m not sure..': '=>{{Do you like green colour?}}'
       }
     },
     'Do you like green colour?': {
       'answers': { 
-        'Yay, of course!': '=={{You like green colour}},
-        'Nope :(': '=={{You bore me}}
+        'Yay, of course!': '=={{You like green colour}}',
+        'Nope :(': '=={{You bore me}}'
       }
     }
   },
