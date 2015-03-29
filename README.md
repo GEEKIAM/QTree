@@ -2,8 +2,6 @@
 
 Может быть тут будет описание. Проект разработан в рамках [Web Challenge 2015](http://uawebchallenge.com/).
 
-# Использование
-
 ## Подключение
 ```javascript
 <script type="text/javascript" src="qtree.js"></script>
